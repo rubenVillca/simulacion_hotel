@@ -2,9 +2,6 @@ package controlador;
 
 import javax.swing.JProgressBar;
 
-import graficas.Barra;
-import graficas.Torta;
-
 import modelo.Hotel;
 import modelo.Progreso;
 
@@ -16,15 +13,15 @@ import vista.VTabla;
 public class Controlador {
 	private VFrame frame;
 	private Hotel hotel;
-	private boolean pause;
+	private boolean pause,stop;
+	private Progreso proc;
 	
 	public Controlador(){
-		//System.out.println(" iniciando constructor controlador");
 		inicializar();
-		//System.out.println(" constructor controlador Terminado\n");
 	}
 	private void inicializar() {
-		//pause=true;
+		pause=false;
+		stop=true;
 		hotel=new Hotel();
 		
 		frame=new VFrame(this);
@@ -41,60 +38,67 @@ public class Controlador {
 		}
 	}
 	public void play() {
-		//pause=false;
-		if(pause==false){
-			//ventana.getVentanaPrincipal().getP_confi().deshabilitar();
+		if(!pause&&stop){
+			stop=false;
+			pause=false;
 			PConfiguracion confi=frame.getpp().getP_confi();
 			confi.deshabilitar();
+			frame.getpp().getP_botones().botones_play();
 			
-			hotel.setNroHabSimples(confi.getNroHab1());
-			hotel.setNroHabDobles(confi.getNroHab2());
-			hotel.setNroHabSuit(confi.getNroHab3());
+			hotel.setNroHab1(confi.getNroHab1());
+			hotel.setNroHab2(confi.getNroHab2());
+			hotel.setNroHab3(confi.getNroHab3());
+			hotel.setNroHab4(confi.getNroHab4());
 			
-			hotel.setPrecioHabSimple(confi.getPrecio1());
-			hotel.setPrecioHabDoble(confi.getPrecio2());
-			hotel.setPrecioHabSuit(confi.getPrecio3());
+			hotel.setPrecioHab1(confi.getPrecio1());
+			hotel.setPrecioHab2(confi.getPrecio2());
+			hotel.setPrecioHab3(confi.getPrecio3());
+			hotel.setPrecioHab4(confi.getPrecio4());
 			
-			hotel.setFechaIni(confi.getFecha());
+			hotel.setDemanda1(confi.getDemanda1());
+			hotel.setDemanda2(confi.getDemanda2());
+			hotel.setDemanda3(confi.getDemanda3());
+			hotel.setDemanda4(confi.getDemanda4());
+			
+			hotel.setTemporada(confi.getTemporada());
 			hotel.setTiempoSim(confi.getTiempo());
 			hotel.setVelocidad(confi.getVel());
-			//hotel.pause(false);
+			
 			hotel.run();
-		}
+		}else
+			if(pause){
+				pause=false;
+				hotel.run();
+			}
 	}
-	public void pause() {
+	public void setPause() {
+		pause=true;
+		stop=false;
 		frame.getpp().getP_confi().habilitar();
-		hotel.pause(true);
+		frame.getpp().getP_botones().botones_pause();
+		hotel.setPause();
+		proc.setPause();
 	}
-	public void stopSimulacion() {
+	public void setStop() {
+		stop=true;
+		pause=false;
 		frame.getpp().getP_confi().habilitar();
-		hotel.stop();
+		frame.getpp().getP_botones().botones_stop();
+		proc.setStop();
+		hotel.setStop();
 	}
 	public void generarTabla() {
 		VTabla tabla=new VTabla(hotel);
 		tabla.llenar();
 	}
-	public void generarGraficas() {
-		new Barra("Tabla",45,78);
-		new Torta("Torta", 45, 50);	
-	}
-	private int calcularIngresos(){		return 0;	}
-	private int calcularEgresos(){		return 0;	}
-	public int calcularUtilidad(){		return calcularIngresos()-calcularEgresos();	}
 	public Hotel getHotel() {
 		if(hotel==null)
 			System.out.println("Retorna el hotel del controlador ESTA VACIO");
-		return hotel;	}
-	public void registrar(int cliente) {		
-		System.out.println("Registrado cliente "+cliente+" en Controlador");	
+		return hotel;	
 	}
 	public void progreso(int  t,JProgressBar p){
-		Progreso proc=new Progreso(t,p,this,hotel.getVelocidad());
+		proc=new Progreso(t,p,this);
 		proc.setVel(hotel.getVelocidad());
 		proc.start();		
-	}
-	public void prueba(String res) {
-		System.out.println("Este prueba que el Controlador Pasa a "+res);
-	}
-	
+	}	
 }

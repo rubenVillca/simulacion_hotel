@@ -2,7 +2,6 @@ package vista;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -26,25 +25,24 @@ public class PBotones extends JPanel {
     	confi_ini();
     	inicializar();
     	confi_fin();
-    	pp.prueba("VBotones");	
     }
 	private void confi_ini() {
 		//setLayout(null);
 		cambiarTam();
-		setBackground(Color.LIGHT_GRAY);
+		setBackground(Color.DARK_GRAY);
 	}
 	private void cambiarTam(){
 		setLayout(new FlowLayout(0,pp.getWidth()/25,10));
 		setBounds(0,0,pp.getWidth(),100);
 	}
-	public void paintComponent(Graphics g){
+	/*public void paintComponent(Graphics g){
 		cambiarTam();
     	//ImageIcon imagen = new ImageIcon(getClass().getResource("/imagenes/fondo_botones_00.png"));
     	//g.drawImage(imagen.getImage(),10,10,(int)getWidth()-20,(int)getHeight(),null);
     	//inicializar(g);
     	//setOpaque(false);
     	super.paintComponent(g);
-    }
+    }*/
 	private void inicializar() {
 		ImageIcon icono_boton;
 		int x=(int)getSize().getWidth();
@@ -55,10 +53,7 @@ public class PBotones extends JPanel {
 		botonPlay.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				botonPlay.setEnabled(false);
-				botonEst.setEnabled(false);
-				botonPause.setEnabled(true);
-				botonStop.setEnabled(true);
+				//botones_play();
 				ctrl.play();
 				ctrl.progreso(ctrl.getHotel().getTiempoSim(), progreso); //barra de progreso
 			}
@@ -80,11 +75,8 @@ public class PBotones extends JPanel {
 		botonPause.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				botonPause.setEnabled(false);
-				botonPlay.setEnabled(true);
-				botonStop.setEnabled(true);
-				botonEst.setEnabled(true);
-				ctrl.pause();
+				//botones_pause();
+				ctrl.setPause();
 			}
 			@Override
 			public void mousePressed(MouseEvent arg0) {			}
@@ -104,12 +96,8 @@ public class PBotones extends JPanel {
 		botonStop.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				botonStop.setEnabled(false);
-				botonPlay.setEnabled(true);
-				botonPause.setEnabled(false);
-				botonEst.setEnabled(true);
-				progreso.setValue(0);
-				ctrl.stopSimulacion();
+				//botones_stop();
+				ctrl.setStop();
 			}
 			@Override
 			public void mousePressed(MouseEvent arg0) {			}
@@ -148,7 +136,7 @@ public class PBotones extends JPanel {
 		botonAcerca.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				JOptionPane.showMessageDialog(null, "Ayuda");
+				JOptionPane.showMessageDialog(null, "Grupo Integrado por:\n-Chacón Paichucama Edson Darío\n-Villca Fernández Rubén\n-Arévalo López Rosa \n-Mendoza Mamani Orlando\n-Cardozo José Antonio\n");
 			}
 			@Override
 			public void mousePressed(MouseEvent arg0) {			}
@@ -156,7 +144,7 @@ public class PBotones extends JPanel {
 			public void mouseExited(MouseEvent arg0) {			}
 			@Override
 			public void mouseEntered(MouseEvent arg0) {			}
-			@Override
+			@Override	
 			public void mouseClicked(MouseEvent arg0) {			}
 		});
 		add(botonAcerca);
@@ -200,4 +188,23 @@ public class PBotones extends JPanel {
 	public JLabel getBotonExit() {		return botonExit;	}
 	public JProgressBar getProgreso() {		return progreso;	}
 	public PanelPrincipal getvPrinc() {		return pp;	}
+	public void botones_play(){
+		botonPlay.setEnabled(false);
+		botonEst.setEnabled(false);
+		botonPause.setEnabled(true);
+		botonStop.setEnabled(true);
+	}
+	public void botones_stop(){
+		botonStop.setEnabled(false);
+		botonPlay.setEnabled(true);
+		botonPause.setEnabled(false);
+		botonEst.setEnabled(true);
+		progreso.setValue(0);
+	}
+	public void botones_pause(){
+		botonPause.setEnabled(false);
+		botonPlay.setEnabled(true);
+		botonStop.setEnabled(true);
+		botonEst.setEnabled(true);
+	}
 }

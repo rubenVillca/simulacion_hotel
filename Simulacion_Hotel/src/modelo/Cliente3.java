@@ -7,6 +7,7 @@ public class Cliente3 extends Cliente{
 private static final long serialVersionUID = 1L;
 	public Cliente3(int i,int x,int y,int velocidad,PAnimacion vA){
 		super(i,x,y,velocidad,vA);
+		n=19;
 		direccion=(int)(Math.random()*10)%2==0;
 		if(direccion)
 			cliente.setIcon(new ImageIcon(getClass().getResource("/peaton" +"/gente_"+n+"d.gif")));
@@ -17,9 +18,6 @@ private static final long serialVersionUID = 1L;
 	@Override
 	public void run() {
 		super.run();
-		//vA.getHotel().registrar(3);
-	}
-	public void setVel(int vel) {
-		this.vel=vel;	
+		vA.getHotel().registrar(1,3,dia);
 	}
 }

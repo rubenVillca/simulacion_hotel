@@ -1,6 +1,5 @@
 package modelo;
 
-import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 
 import controlador.Controlador;
@@ -10,30 +9,38 @@ public class Progreso extends Thread{
 	private JProgressBar progreso;
 	private int vel;
 	private Controlador ctrl;
-	public Progreso(int t,JProgressBar p,Controlador c,int v){
+	private boolean pause,stop;
+	
+	public Progreso(int t,JProgressBar p,Controlador c){
 		tiempo=t;
 		progreso=p;
 		ctrl=c;
-	//	vel=v*10; // un dia == 10 segundos
 	}
 	public void run(){
-		//System.out.println("iniciado");
+		pause=stop=false;
 		for(int i=0;i<=100;i++){
-			try {		Thread.sleep(vel);		} 
-			catch (InterruptedException e) {		e.printStackTrace();		}
-			//System.out.println(i);
-			progreso.setValue(i);
+			if(pause==false&&stop==false){
+				try {		Thread.sleep(vel);		} 
+				catch (InterruptedException e) {		e.printStackTrace();		}
+				progreso.setValue(i);
+			}else
+				if(stop==true)
+					i=100;
+				else
+					--i;
 		}
-		//JOptionPane.showMessageDialog(null, "Terminado");
-		ctrl.stopSimulacion();
+		try {		Thread.sleep(3000);		} 
+		catch (InterruptedException e) {		e.printStackTrace();		}
+		ctrl.setStop();
 		ctrl.generarTabla();
 	}
-	public int getTiempo() {		return tiempo;	}
-	public void setTiempo(int tiempo) {	this.tiempo = tiempo;	}
-	public JProgressBar getProgreso() {		return progreso;	}
-	public void setProgreso(JProgressBar progreso) {		this.progreso = progreso;	}
-	public int getVel() {		return vel;	}
-	public void setVel(int vel) {
-		this.vel = (tiempo*100)/(24*vel);
-	}
+	public void setPause(){								pause=true;					}
+	public void setStop(){								stop=true;					}
+	public int getTiempo() {							return tiempo;				}
+	public void setTiempo(int tiempo) {					this.tiempo = tiempo;		}
+	public JProgressBar getProgreso() {					return progreso;			}
+	public void setProgreso(JProgressBar progreso) {	this.progreso = progreso;	}
+	public int getVel() {								return vel;					}
+	//un dia es igual a 10 segundos
+	public void setVel(int vel) {						this.vel = (tiempo*100);	}
 }

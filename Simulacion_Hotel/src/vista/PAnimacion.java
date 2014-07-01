@@ -13,13 +13,10 @@ public class PAnimacion extends JPanel{
 	private Hotel hotel;
     public PAnimacion(PanelPrincipal vpp){
     	this.pp=vpp;
-    	//System.out.println("       *asignando hotel a vA");
     	hotel=pp.getHotel();
-    	//System.out.println("       *asignando hotel a vA");
     	confi_ini();
     	inicializar();
     	confi_fin();
-    	pp.prueba("VAnimacion");
     }
     private void confi_ini() {
        	setLayout(null);
@@ -35,16 +32,10 @@ public class PAnimacion extends JPanel{
     	super.paintComponent(g);
     }
 	private void confi_fin() {		setVisible(true);	}
-	public void run(){				hotel.run();	}
-	public void stop(){				hotel.stop();	}
-	public void pause(){			hotel.pause(false);	}
-	public PanelPrincipal getPanelP() {	return pp;	}
-	public Hotel getHotel(){		return hotel;}
-	public void prueba(String string) {
-		//System.out.println("Ha pasado el "+string);
-		//pp.prueba(string);
-	}
-	public PanelPrincipal getPP() {
-		return pp;
-	}
+	public void run(){				hotel.run();		}
+	public void stop(){				hotel.setStop();	}
+	public void pause(){			hotel.setPause();	}
+	public PanelPrincipal getPanelP() {	return pp;		}
+	public Hotel getHotel(){		return hotel;		}
+	public PanelPrincipal getPP() {		return pp;		}
 }

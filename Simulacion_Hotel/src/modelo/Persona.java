@@ -3,15 +3,17 @@ package modelo;
 import vista.PAnimacion;
 
 public class Persona extends Thread{
-	protected int nroPersonas;
+	protected int dia;
 	protected PAnimacion pA;
 	protected int vel;
 	protected boolean pause;
-	public Persona(PAnimacion va,int n,int vel){
+	protected boolean stopp;
+	public Persona(PAnimacion va,int d,int vel){
 		pA=va;
-		nroPersonas=n;
+		dia=d;
 		this.vel=vel;
-		pause=true;
+		pause=false;
+		stopp=false;
 	}
 	public void setVel(int v){		vel=v;	}
 }

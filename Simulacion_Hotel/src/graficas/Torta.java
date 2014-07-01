@@ -9,31 +9,37 @@ import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 import org.jfree.ui.RefineryUtilities;
 import org.jfree.util.Rotation;
-import org.jfree.chart.ChartUtilities;
-import java.io.*;
+/*import org.jfree.chart.ChartUtilities;
+import java.io.*;*/
 public class Torta extends JFrame {
 
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	int caja,esta;
+	private int demandaA1,demandaA2,demandaA3,demandaA4;
+	private int demandaN1,demandaN2,demandaN3,demandaN4;
     
-    public Torta(String title, int ca, int est) {
-
-        super(title);      
-        caja=ca;
-        esta=est;
+    public Torta(String title,int da1,int dn1,int da2,int dn2,int da3,int  dn3,int da4,int dn4 ) {
+        super(title);
+        demandaA1=da1;
+        demandaN1=dn1;
+        demandaA2=da2;
+        demandaN2=dn2;
+        demandaA3=da3;
+        demandaN3=dn3;
+        demandaA4=da4;
+        demandaN4=dn4;
         setUndecorated(true);
         PieDataset dataset = createSampleDataset();
         JFreeChart chart = createChart(dataset);
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
-        try {
+        /*try {
             ChartUtilities.saveChartAsJPEG(new File("Torta.jpg"), chart, 500,300);
         } catch (IOException e) {
             System.err.println("Error creando grafico.");
-        } 
+        } */
         
         setContentPane(chartPanel);         
         pack();
@@ -44,9 +50,14 @@ public class Torta extends JFrame {
     private PieDataset createSampleDataset() {
         
         DefaultPieDataset result = new DefaultPieDataset();
-        result.setValue("CAJA", caja);
-        result.setValue("ESTADO DE CUENTA", esta);
-        result.setValue("Nuevo",50);
+        result.setValue("ClienteA1", demandaA1);
+        result.setValue("ClienteN1",demandaN1);
+        result.setValue("ClienteA2", demandaA2);
+        result.setValue("ClienteN2",demandaN2);
+        result.setValue("ClienteA3", demandaA3);
+        result.setValue("ClienteN3",demandaN3);
+        result.setValue("ClienteA4", demandaA4);
+        result.setValue("ClienteN4",demandaN4);
         return result;       
     }
   
@@ -71,7 +82,7 @@ public class Torta extends JFrame {
     }
      public static void main(String[]jj)
     {   
-        Torta re=new Torta("Reporte de Torta Llegada de clientes",46,46); 
+        Torta re=new Torta("Reporte de Torta Llegada de clientes",46,46,45,45,47,48,96,21); 
         RefineryUtilities.centerFrameOnScreen(re);
     }
 }

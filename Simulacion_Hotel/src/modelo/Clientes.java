@@ -4,39 +4,51 @@ import vista.PAnimacion;
 
 public class Clientes{
 	private static final long serialVersionUID = 1L;
-	private Clientes1 clientes1;
-	private Clientes2 clientes2;
-	private Clientes3 clientes3;
-	public Clientes(PAnimacion va,int nroClSimp,int nroClDobl,int nroClSuit,int vel){
-		clientes1=new Clientes1(va, nroClSimp,vel);
-		clientes2=new Clientes2(va, nroClDobl,vel);
-		clientes3=new Clientes3(va, nroClSuit,vel);
+	private int velocidad;
+	protected PAnimacion vA;
+	private Clientes1 cls1;
+	private Clientes2 cls2;
+	private Clientes3 cls3;
+	private Clientes4 cls4;
+	
+	public Clientes(PAnimacion va,int c1,int c2,int c3,int c4,int vel,int dias,int temporada){
+		vA=va;
+		velocidad=vel;
+		cls1=new Clientes1(vA, c1,velocidad,dias,temporada);
+		cls2=new Clientes2(va, c2,velocidad,dias,temporada);
+		cls3=new Clientes3(va, c3,velocidad,dias,temporada);
+		cls4=new Clientes4(va, c4,velocidad,dias,temporada);
 	}
 	public void run(){
-		//clientes1.pause(false);
-		clientes1.start();
-		//clientes2.pause(false);
-   		//clientes2.start();
-   		//clientes3.pause(false);
-   		//clientes3.start();
+		cls1.start();
+		cls2.start();
+   		cls3.start();
+		cls4.start();
 	}
-	public void stop(){}
-	public void pause(boolean p){
-		clientes1.pause(p);
-		//clientes2.setpause();
-		//clientes3.setpause();
+	public void setStop(){
+		cls1.setStop();
+		cls2.setStop();
+		cls3.setStop();
+		cls4.setStop();
+	}
+	public void setPause(){
+		cls1.setPause();
+		cls2.setPause();
+		cls3.setPause();
+		cls4.setPause();
 	}
 	public void setVel(int vel){
-		//vel*=10*20;  controlador para parar
-		clientes1.setVel(vel);
-		clientes2.setVel(vel);
-		clientes3.setVel(vel);
+		cls1.setVel(vel);
+		cls2.setVel(vel);
+		cls3.setVel(vel);
+		cls4.setVel(vel);
 	}
 	public int getNroClientes(){
 		int res=0;
-		res+=clientes1.getClientes();
-		res+=clientes2.getClientes();
-		res+=clientes3.getClientes();
+		res+=cls1.getClientes();
+		res+=cls2.getClientes();
+		res+=cls3.getClientes();
+		res+=cls4.getClientes();
 		return res;
 	}
 }

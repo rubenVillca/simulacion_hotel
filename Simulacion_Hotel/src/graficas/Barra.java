@@ -13,48 +13,51 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.RefineryUtilities;
-import org.jfree.chart.ChartUtilities;
-import java.io.File;
-import java.io.*;
 public class Barra extends JFrame {
 
     private static final long serialVersionUID = 1L;
-	int caja;
-    int esta;
+	private int demandaA1,demandaA2,demandaA3,demandaA4;
+	private int demandaN1,demandaN2,demandaN3,demandaN4;
     
-    public Barra(String title,int ca,int est) {
+    public Barra(String title,int da1,int dn1,int da2,int dn2,int da3,int  dn3,int da4,int dn4 ) {
         super(title);
-        caja=ca;
-        esta=est;
+        demandaA1=da1;
+        demandaN1=dn1;
+        demandaA2=da2;
+        demandaN2=dn2;
+        demandaA3=da3;
+        demandaN3=dn3;
+        demandaA4=da4;
+        demandaN4=dn4;
         CategoryDataset dataset = createDataset();
         JFreeChart chart = createChart(dataset);
         ChartPanel chartPanel = new ChartPanel(chart, false);
         chartPanel.setPreferredSize(new Dimension(600, 470));
         setUndecorated(true);
-         getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
-          try {
-            ChartUtilities.saveChartAsJPEG(new File("Barra.jpg"), chart, 500,300);
-        } catch (IOException e) {
-            System.err.println("Error creando grafico.");
-        } 
-         setContentPane(chartPanel);
+        getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
+        setContentPane(chartPanel);
         pack();
         setVisible(true);
     }
 
     private CategoryDataset createDataset() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue(esta, "ESTADO DE CUENTA","");
-        dataset.addValue(caja,"CAJA","");
-        dataset.addValue(50,"neuvo","");
+        dataset.addValue(demandaA1,"Clientes Atendidos 1","Habitacion1");
+        dataset.addValue(demandaN1,"Clientes No Atendidos 1","Habitacion1");
+        dataset.addValue(demandaA2,"Demanda Habitacion 2","Habitacion2");
+        dataset.addValue(demandaN2,"Clientes No Atendidos 2","Habitacion2");
+        dataset.addValue(demandaA3,"Demanda Habitacion 3","Habitacion3");
+        dataset.addValue(demandaN3,"Clientes No Atendidos 3","Habitacion3");
+        dataset.addValue(demandaA4,"Demanda Habitacion 4","Habitacion4");
+        dataset.addValue(demandaN4,"Clientes No Atendidos 4","Habitacion4");
         return dataset;
     }
 
     private JFreeChart createChart(CategoryDataset dataset) {
         JFreeChart chart = ChartFactory.createBarChart(
-            "LLEGADA DE CLIENTES",       // chart title
-            "DIRECCION",               // domain axis label
-            "CANTIDAD",                  // range axis label
+            "Llegada de Clientes a las Habitaciones",       // chart title
+            "Demanda Atencion Clientes",               // domain axis label
+            "Clientes",                  // range axis label
             dataset,                  // data
             PlotOrientation.VERTICAL, // orientation
             true,                     // include legend
@@ -75,15 +78,22 @@ public class Barra extends JFrame {
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setDrawBarOutline(false);
         // set up gradient paints for series...
-        GradientPaint gp0 = new GradientPaint(0.0f, 0.0f, Color.blue,
-                0.0f, 0.0f, new Color(0, 0, 64));
-        GradientPaint gp1 = new GradientPaint(0.0f, 0.0f, Color.green,
-                0.0f, 0.0f, new Color(0, 64, 0));
-        GradientPaint gp2 = new GradientPaint(0.0f, 0.0f, Color.red,
-                0.0f, 0.0f, new Color(64, 0, 0));
+        GradientPaint gp0 = new GradientPaint(0.0f, 0.0f, Color.blue, 0.0f, 0.0f, new Color(0, 0, 64));
+        GradientPaint gp1 = new GradientPaint(15.18f, 0.0f, Color.green,0.0f, 0.0f, new Color(0, 64, 0));
+        GradientPaint gp2 = new GradientPaint(0.0f, 0.0f, Color.red,0.0f, 0.0f, new Color(64, 0, 0));
+        GradientPaint gp3 = new GradientPaint(0.0f, 0.0f, Color.BLACK,0.0f, 0.0f, new Color(18,48,48));
+        GradientPaint gp4 = new GradientPaint(0.0f, 0.0f, Color.CYAN,0.0f, 0.0f, new Color(78,78,78));
+        GradientPaint gp5 = new GradientPaint(0.0f, 0.0f, Color.BLACK,0.0f, 0.0f, new Color(16,18,24));
+        GradientPaint gp6 = new GradientPaint(0.0f, 0.0f, Color.LIGHT_GRAY,0.0f, 0.0f, new Color(0,0,250));
+        GradientPaint gp7 = new GradientPaint(0.0f, 0.0f, Color.WHITE,0.0f, 0.0f, new Color(45,78,35));
         renderer.setSeriesPaint(0, gp0);
         renderer.setSeriesPaint(1, gp1);
         renderer.setSeriesPaint(2, gp2);
+        renderer.setSeriesPaint(3, gp3);
+        renderer.setSeriesPaint(4, gp4);
+        renderer.setSeriesPaint(5, gp5);
+        renderer.setSeriesPaint(6, gp6);
+        renderer.setSeriesPaint(7, gp7);
         
         CategoryAxis domainAxis = plot.getDomainAxis();
         domainAxis.setCategoryLabelPositions(
@@ -91,7 +101,7 @@ public class Barra extends JFrame {
         return chart;
     }
    public static void main(String[] args) {
-        Barra demo = new Barra("REPORTE DE LLEGADA DE CLIENTES",50,1);
+        Barra demo = new Barra("REPORTE DE LLEGADA DE CLIENTES",100,90,80,70,60,50,40,30);
                 RefineryUtilities.centerFrameOnScreen(demo);
     }
 }

@@ -8,6 +8,7 @@ private static final long serialVersionUID = 1L;
 	
 	public Cliente1(int i,int x,int y,int velocidad,PAnimacion vA){
 		super(i,x,y,velocidad,vA);
+		n=9;
 		direccion=(int)(Math.random()*10)%2==0;
 		if(direccion)
 			cliente.setIcon(new ImageIcon(getClass().getResource("/peaton" +"/gente_"+n+"d.gif")));
@@ -18,11 +19,6 @@ private static final long serialVersionUID = 1L;
 	@Override
 	public void run() {
 		super.run();
-		vA.prueba("Cliente1");
-		vA.getHotel().registrar(1);
-	}
-	public void setVelocidad(int v){  vel=v;	}
-	public void setPause(boolean p) {
-		pause=p;
+		vA.getHotel().registrar(1,1,dia);
 	}
 }

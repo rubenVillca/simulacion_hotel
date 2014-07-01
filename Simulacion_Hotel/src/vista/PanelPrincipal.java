@@ -15,14 +15,12 @@ public class PanelPrincipal extends JPanel {
 	private VFrame vFrame;
 	private Hotel hotel;
 	public PanelPrincipal(Controlador c,VFrame frame){
-	   //System.out.println("     constructor pp iniciado");
 	   ctrl=c;
 	   vFrame=frame;
 	   hotel=ctrl.getHotel();
 	   confi_ini();
 	   inicializar();
 	   confi_fin();
-	   //System.out.println("     constructor pp termimado");
 	}
     private void confi_ini() {
     	setLayout(null);
@@ -38,17 +36,9 @@ public class PanelPrincipal extends JPanel {
     	super.paintComponent(g);
     }*/
 	private void inicializar() {
-		//System.out.println("      inicializar pp");
-		//hotel=ctrl.getHotel();
-		
 		pA=new PAnimacion(this);		
 		add(pA);
-		
-		//System.out.println("      creando hotel en pp");
-		//hotel=pA.getHotel();
-		//System.out.println("      creado hotel en pp");
-		
-		
+	
 		pConf=new PConfiguracion(this);		
 		add(pConf);
 		
@@ -66,9 +56,4 @@ public class PanelPrincipal extends JPanel {
 			System.out.println("        Hotel es NO existe en pp");
 		return hotel;	}
 	public Controlador getCtrl(){				return ctrl;	}
-	public void prueba(String string) {
-		//ctrl.prueba(string);
-		//System.out.println("Ha pasado por VPanel Principal "+string);
-		hotel.prueba(string+" la prueba en pp ");
-	}
 }

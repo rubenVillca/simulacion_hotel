@@ -9,10 +9,10 @@ public DistribucionMedia()
 public void generar(double media , double desvio){
      GeneradorCongruencialMixto generadorCon = new GeneradorCongruencialMixto();
      double valorAux1 = generadorCon.numeroAleatorio();
-     double z = Math.sqrt(-2*Math.log(valorAux1))*Math.sin(2*Math.PI*Math.log(valorAux1));
+     double z = Math.abs(Math.sqrt(-2*Math.log(valorAux1))*Math.sin(2*Math.PI*Math.log(valorAux1)));
 	 double aux = (z*desvio) + media;
      String res = ""+aux;
-	// System.out.println(z);
+	 //System.out.println(z);
 
 	//Evitar q salga error NaN por la raiz negativa
 	 if(res.equalsIgnoreCase("NaN")){
@@ -30,7 +30,7 @@ public static void main(String[]args)
 {
 	
 DistribucionMedia GenMedia = new DistribucionMedia();
-GenMedia.generar(10, 3);
+GenMedia.generar(10, .95);
 double res2 = GenMedia.getValor();
 System.out.println(res2);
 
